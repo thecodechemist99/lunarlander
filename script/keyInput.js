@@ -35,6 +35,10 @@ export default class KeyInput {
     return false;
   }
 
+  keyReleased() {
+    this.focusElement.keyReleased();
+  }
+
   sendKey(key) {
     this.focusElement.getKey(key);
   }

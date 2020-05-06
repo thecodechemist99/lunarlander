@@ -6,6 +6,7 @@ let sketch = new p5();
 window.utils = new LunarlanderUtils();
 
 window.fps = 30;
+window.ground = 0.9 * windowHeight;
 
 function preload() {
   window.thrustSound = loadSound("./media/sound/thrust.mp3");

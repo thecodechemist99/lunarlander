@@ -54,7 +54,7 @@ export default class Background extends Sprite {
     textSize(12);
     text(
       "ALTITUDE   " +
-        round(windowHeight - 140 - this.altitude - 17) * 10 +
+        round(ground - this.altitude - 17) * 10 +
         "\n HORIZONTAL SPEED   " +
         round(this.xSpeed * 10) +
         "\n VERTICAL SPEED   " +

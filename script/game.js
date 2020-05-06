@@ -9,6 +9,13 @@ export default class Game {
     this.timer = timer;
     this.level = 0;
     this.score = 0;
+    this.modes = {
+      START: 0,
+      RUN: 1,
+      HIGHSCORE: 2,
+      END: 3,
+    };
+    this.mode = this.modes.START;
   }
 
   reset() {

@@ -38,7 +38,6 @@ export default class Timer {
 
   getTimeAsString() {
     let time = this.m.toString();
-    console.log(time);
     if (this.s < 10) {
       time += ":0" + this.s;
     } else {

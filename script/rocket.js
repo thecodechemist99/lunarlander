@@ -16,29 +16,39 @@ export default class Rocket extends SteerableObject {
   keyIsDown(keyCode) {
     if (this.fuel > 0) {
       switch (keyCode) {
+        case 65:
         case LEFT_ARROW:
           // tilt left
           this.rotation -= radians(2);
           this.fuel--;
           break;
+        case 68:
         case RIGHT_ARROW:
           // tilt right
           this.rotation += radians(2);
           this.fuel--;
           break;
+        case 87:
         case UP_ARROW:
           // increase thrust
           this.ySpeed -= 0.2;
           this.fuel--;
           this.fuelEx += 5;
 
-          if (!thrustSound.isLooping()) {
-            thrustSound.loop();
+          if (!window.thrustSound.isLooping()) {
+            window.thrustSound.loop();
           } else {
-            thrustSound.fade(1.5, 0.5);
+            window.thrustSound.fade(1.5, 0.5);
           }
           break;
       }
+    }
+  }
+
+  keyReleased() {
+    if (window.thrustSound.isLooping()) {
+      console.log("released!");
+      window.thrustSound.fade(0, 1.2);
     }
   }
 
@@ -50,7 +60,7 @@ export default class Rocket extends SteerableObject {
       this.xSpeed += 0.05;
     }
 
-    this.xSpeed += this.rotation * 0.005;
+    this.xSpeed += this.rotation * 0.3;
 
     this.y += this.ySpeed;
     this.ySpeed += 0.1;
@@ -64,6 +74,9 @@ export default class Rocket extends SteerableObject {
     } else {
       window.thrustSound.fade(0, 0.4);
     }
+
+    this.checkGroundHit();
+    this.checkBorderHit();
   }
 
   draw() {
@@ -82,6 +95,43 @@ export default class Rocket extends SteerableObject {
       triangle(-5, 20, 5, 20, 0, 20 + this.fuelEx);
       triangle(-5, 20, 5, 20, 0, 20 + this.fuelEx * 0.6);
       triangle(-5, 20, 5, 20, 0, 20 + this.fuelEx * 0.2);
+    }
+  }
+
+  checkGroundHit() {
+    if (this.y + 17 >= window.ground) {
+      if (
+        this.ySpeed > 2 ||
+        this.rotation > radians(10) ||
+        this.rotation < radians(-10)
+      ) {
+        // won = false;
+        window.explosionSound.play();
+        if (this.ySpeed >= 4) {
+          //   this.score -= 200;
+        } else {
+          //   this.score -= 100;
+        }
+      } else {
+        // won = true;
+        if (this.x > windowWidth * 0.3 + 60 && this.x < windowWidth / 2) {
+          //   score += 200 + this.fuel;
+        } else {
+          //   score += 100 + this.fuel;
+        }
+      }
+      this.ySpeed = 0;
+      //   finished = true;
+    }
+  }
+
+  checkBorderHit() {
+    if (this.x < -10 || this.x > windowWidth + 10) {
+      if (!window.beepSound.isPlaying()) {
+        window.beepSound.play();
+      }
+      // finishText = "YOU LOST CONTROL OF THE SPACESHIP";
+      // run = false;
     }
   }
 }

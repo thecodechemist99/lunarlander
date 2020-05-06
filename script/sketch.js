@@ -19,16 +19,28 @@ let game = new Game(timer);
 // init objects
 
 let world = new Sprite(0, 0);
-world.resize(width, height);
+world.resize(windowWidth, windowHeight);
+
+let startScreen = new Sprite(0, 0);
+startScreen.resize(windowWidth, windowHeight);
+world.addChild(startScreen);
+
+let endScreen = new Sprite(0, 0);
+endScreen.resize(windowWidth, windowHeight);
+world.addChild(endScreen);
+
+let gameScreen = new Sprite(0, 0);
+gameScreen.resize(windowWidth, windowHeight);
+world.addChild(gameScreen);
 
 let background = new Background(0, 0);
 world.addChild(background);
 
-let planets = window.utils.calcRandomObjects(4, 8, 16, 150, windowHeight - 140);
+let planets = window.utils.calcRandomObjects(4, 8, 16, 150, ground - 140);
 
 for (let element of planets) {
   let planet = new Planet(element[0], element[1], element[2]);
-  world.addChild(planet);
+  gameScreen.addChild(planet);
 }
 
 let rocket = new Rocket(windowWidth / 2, 50, keys);
@@ -45,6 +57,9 @@ function draw() {
   keys.keyIsDown(LEFT_ARROW);
   keys.keyIsDown(RIGHT_ARROW);
   keys.keyIsDown(UP_ARROW);
+  keys.keyIsDown(87);
+  keys.keyIsDown(65);
+  keys.keyIsDown(68);
 
   rocket.update();
   background.update(
@@ -86,3 +101,8 @@ function keyTyped() {
   keys.keyTyped();
 }
 window.keyTyped = keyTyped;
+
+function keyReleased() {
+  keys.keyReleased();
+}
+window.keyReleased = keyReleased;

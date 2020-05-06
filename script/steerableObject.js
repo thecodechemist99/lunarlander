@@ -18,6 +18,8 @@ export default class SteerableObject extends InteractiveObject {
     this.keyInput.getFocus(this);
   }
 
+  getKey() {}
+
   keyIsDown(keyCode) {}
 
   arrowKeys() {}
