@@ -44,7 +44,7 @@ for (let element of planets) {
 }
 
 let rocket = new Rocket(windowWidth / 2, 50, keys);
-world.addChild(rocket);
+gameScreen.addChild(rocket);
 rocket.getFocus();
 
 timer.start();
