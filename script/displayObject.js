@@ -4,7 +4,7 @@ Distributed under the MIT license.
 (c)2020 Florian Beck, based upon work by Garrit Schaap.
 */
 
-export default class DisplayObject {
+export default class DisplayObject extends EventDispatcher {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -17,6 +17,8 @@ export default class DisplayObject {
     this.width = width;
     this.height = height;
   }
+
+  update() {}
 
   draw() {}
 

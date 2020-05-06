@@ -7,9 +7,13 @@ Distributed under the MIT License.
 export default class Game {
   constructor(timer) {
     this.timer = timer;
+    this.level = 0;
+    this.score = 0;
   }
 
   reset() {
-    this.timer = 0;
+    this.timer.reset();
+    this.level = 0;
+    this.score = 0;
   }
 }

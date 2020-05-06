@@ -21,7 +21,7 @@ let game = new Game(timer);
 let world = new Sprite(0, 0);
 world.resize(width, height);
 
-let background = new Background(0, 0, timer);
+let background = new Background(0, 0);
 world.addChild(background);
 
 let planets = window.utils.calcRandomObjects(4, 8, 16, 150, windowHeight - 140);
@@ -44,7 +44,7 @@ function draw() {
   keys.keyIsDown(RIGHT_ARROW);
   keys.keyIsDown(UP_ARROW);
 
-  rocket.move();
+  world.update();
   world.display();
 }
 window.draw = draw;

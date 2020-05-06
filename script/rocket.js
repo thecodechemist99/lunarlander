@@ -42,7 +42,7 @@ export default class Rocket extends SteerableObject {
     }
   }
 
-  move() {
+  update() {
     this.x += this.xSpeed;
     if (this.xSpeed > 0) {
       this.xSpeed -= 0.05;

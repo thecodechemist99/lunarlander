@@ -12,6 +12,12 @@ export default class Sprite extends InteractiveObject {
     this.children = [];
   }
 
+  update() {
+    for (let index in this.children) {
+      this.children[index].update();
+    }
+  }
+
   display() {
     if (this.visible) {
       push();

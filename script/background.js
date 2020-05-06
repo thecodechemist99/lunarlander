@@ -11,6 +11,8 @@ export default class Background extends Sprite {
     super(x, y);
   }
 
+  update() {}
+
   draw() {
     background("#000000");
 
