@@ -9,7 +9,7 @@ export default class Timer {
     this.fps = fps;
     this.m = 0;
     this.s = 0;
-    this.ms = 0;
+    this.cs = 0;
     this.run = false;
   }
 
@@ -19,24 +19,42 @@ export default class Timer {
 
   tick() {
     if (this.run) {
-      timer.ms += 60 / this.fps;
+      this.cs += floor(100 / this.fps);
 
-      if (timer.ms >= 60) {
-        timer.s++;
-        timer.ms = 0;
+      if (this.cs >= 100) {
+        this.s++;
+        this.cs = 0;
       }
-      if (timer.s >= 60) {
-        timer.m++;
-        timer.s = 0;
+      if (this.s >= 60) {
+        this.m++;
+        this.s = 0;
       }
     }
   }
 
   getTime() {
-    return { m: this.m, s: this.s, ms: this.ms };
+    return { m: this.m, s: this.s, cs: this.cs };
+  }
+
+  getTimeAsString() {
+    let time = this.m.toString();
+    console.log(time);
+    if (this.s < 10) {
+      time += ":0" + this.s;
+    } else {
+      time += ":" + this.s;
+    }
+    if (this.cs < 10) {
+      time += ":0" + this.cs;
+    } else {
+      time += ":" + this.cs;
+    }
+    return time;
   }
 
   reset() {
-    this.timer = 0;
+    this.m = 0;
+    this.s = 0;
+    this.cs = 0;
   }
 }

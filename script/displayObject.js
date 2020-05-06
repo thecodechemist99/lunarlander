@@ -4,8 +4,11 @@ Distributed under the MIT license.
 (c)2020 Florian Beck, based upon work by Garrit Schaap.
 */
 
+import EventDispatcher from "./eventDispatcher.js";
+
 export default class DisplayObject extends EventDispatcher {
   constructor(x, y) {
+    super();
     this.x = x;
     this.y = y;
     this.scale = 1;

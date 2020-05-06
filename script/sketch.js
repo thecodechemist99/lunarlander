@@ -35,6 +35,8 @@ let rocket = new Rocket(windowWidth / 2, 50, keys);
 world.addChild(rocket);
 rocket.getFocus();
 
+timer.start();
+
 // draw
 
 function draw() {
@@ -44,7 +46,16 @@ function draw() {
   keys.keyIsDown(RIGHT_ARROW);
   keys.keyIsDown(UP_ARROW);
 
-  world.update();
+  rocket.update();
+  background.update(
+    timer.getTimeAsString(),
+    game.score,
+    game.level,
+    rocket.fuel,
+    round(rocket.y),
+    rocket.xSpeed,
+    rocket.ySpeed
+  );
   world.display();
 }
 window.draw = draw;
