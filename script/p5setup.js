@@ -5,6 +5,8 @@ import LunarlanderUtils from "./utils.js";
 let sketch = new p5();
 window.utils = new LunarlanderUtils();
 
+window.fps = 30;
+
 function preload() {
   window.thrustSound = loadSound("./media/sound/thrust.mp3");
   window.explosionSound = loadSound("./media/sound/explosion.mp3");
@@ -15,7 +17,7 @@ window.preload = preload;
 
 function setup() {
   sketch.createCanvas(windowWidth, windowHeight);
-  frameRate(30);
+  frameRate(window.fps);
 
   textFont("Courier");
 

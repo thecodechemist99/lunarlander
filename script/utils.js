@@ -1,5 +1,5 @@
 /* 
-Utility functions for lunarlander game.
+Utility class for lunarlander game.
 Distributed under the MIT license.
 (c)2020 Florian Beck
 */

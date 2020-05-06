@@ -3,7 +3,7 @@
 /*
 Lunar Lander Game with arrow/wasd key control and highscore (based on PHP and MySQL database).
 Web implementation of javascript file with friendly help from Jan and Amos from higher semesters.
-(c)2019 Florian Beck
+(c) 2019 Florian Beck
  */
 
 new p5();
@@ -71,7 +71,7 @@ let rocket = {
   ySpeed: 0,
   tilt: 0,
   fuel: 150,
-  fuelEx: 0
+  fuelEx: 0,
 };
 let timer = { m: 0, s: 0, ms: 0 };
 
@@ -388,7 +388,7 @@ function calcPlanets() {
     planets[i] = [
       random(0, width),
       random(150, ground - 140),
-      random(0.5, 1.2)
+      random(0.5, 1.2),
     ];
   }
 }
@@ -911,7 +911,7 @@ function highscoreDataServerExchange(sendScore) {
   let url = "lunarlander.php";
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       highscorelist = JSON.parse(xhr.responseText);
       nameInput = false;
@@ -921,7 +921,7 @@ function highscoreDataServerExchange(sendScore) {
     let data = JSON.stringify({
       sendName: name.join(""),
       sendScore: score,
-      sendLevel: level
+      sendLevel: level,
     });
     xhr.send(data);
   } else {

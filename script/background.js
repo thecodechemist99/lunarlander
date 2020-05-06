@@ -1,13 +1,13 @@
 /* 
 Background class for lunarlander game.
 Distributed under the MIT license.
-(c)2020 Florian Beck
+(c) 2020 Florian Beck.
 */
 
 import Sprite from "./sprite.js";
 
 export default class Background extends Sprite {
-  constructor(x, y) {
+  constructor(x, y, timer) {
     super(x, y);
   }
 
