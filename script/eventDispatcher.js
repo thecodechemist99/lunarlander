@@ -1,26 +1,43 @@
+/*
+EventDispatcher class.
+Distributed under the MIT License.
+(c) 2020 Florian Beck.
+*/
+
 export default class EventDispatcher {
   constructor() {
-    this.eventListeners = [];
+    this.listeners = {};
   }
 
   addEventListener(type, eventHandler) {
-    let listener = {};
-    listener.type = type;
-    listener.eventHandler = eventHandler;
-    this.eventListeners.push(listener);
+    if (!(type in this.listeners)) {
+      this.listeners[type] = [];
+    }
+    this.listeners[type].push(eventHandler);
   }
 
-  removeEventListener(event) {
-    for (let index in this.eventListeners) {
-      if (event === this.eventListeners[index].type)
-        delete this.eventListeners[index];
+  removeEventListener(type, eventHandler) {
+    if (!(type in this.listeners)) {
+      return;
+    }
+
+    for (let index in this.listeners[type]) {
+      if (this.listeners[type][index] === eventHandler) {
+        this.listeners[type].splice(index, 1);
+        return;
+      }
     }
   }
 
-  dispatchEvent(event, param) {
-    for (let index in this.eventListeners) {
-      if (event === this.eventListeners[index].type)
-        this.eventListeners[index].eventHandler(param);
+  dispatchEvent(event) {
+    if (!(event.type in this.listeners)) {
+      return true;
     }
+
+    event.target = this;
+    for (let index in this.listeners[event.type]) {
+      this.listeners[event.type][index].call(this, event);
+    }
+    return !event.defaultPrevented;
   }
 }
