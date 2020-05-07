@@ -10,25 +10,18 @@ export default class Timer {
     this.m = 0;
     this.s = 0;
     this.cs = 0;
-    this.run = false;
-  }
-
-  start() {
-    this.run = true;
   }
 
   tick() {
-    if (this.run) {
-      this.cs += floor(100 / this.fps);
+    this.cs += floor(100 / this.fps);
 
-      if (this.cs >= 100) {
-        this.s++;
-        this.cs = 0;
-      }
-      if (this.s >= 60) {
-        this.m++;
-        this.s = 0;
-      }
+    if (this.cs >= 100) {
+      this.s++;
+      this.cs = 0;
+    }
+    if (this.s >= 60) {
+      this.m++;
+      this.s = 0;
     }
   }
 

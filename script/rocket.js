@@ -9,8 +9,12 @@ import SteerableObject from "./steerableObject.js";
 export default class Rocket extends SteerableObject {
   constructor(x, y, keyInput) {
     super(x, y, keyInput);
+    this.xStart = this.x;
+    this.yStart = this.y;
     this.fuel = 150;
     this.fuelEx = 0;
+    this.crashed = false;
+    this.internalTimer = 0;
   }
 
   keyIsDown(keyCode) {
@@ -75,26 +79,9 @@ export default class Rocket extends SteerableObject {
       window.thrustSound.fade(0, 0.4);
     }
 
-    this.checkGroundHit();
-    this.checkBorderHit();
-  }
-
-  draw() {
-    noStroke();
-    fill("#ffffff");
-    rectMode(CENTER);
-    ellipse(0, 0, 18, 34);
-    rect(0, 0 - 20, 2, 15);
-    quad(-9, 2, 9, 2, 15, 11, -15, 11);
-    fill("#000000");
-    ellipse(0, -5, 8, 12);
-
-    // fuel exhaustion
-    fill(window.whiteOpaque);
-    if (this.fuelEx) {
-      triangle(-5, 20, 5, 20, 0, 20 + this.fuelEx);
-      triangle(-5, 20, 5, 20, 0, 20 + this.fuelEx * 0.6);
-      triangle(-5, 20, 5, 20, 0, 20 + this.fuelEx * 0.2);
+    if (this.checkGroundHit() || this.checkBorderHit()) {
+      this.crashed = true;
+      return true;
     }
   }
 
@@ -121,7 +108,7 @@ export default class Rocket extends SteerableObject {
         }
       }
       this.ySpeed = 0;
-      //   finished = true;
+      return true;
     }
   }
 
@@ -131,7 +118,55 @@ export default class Rocket extends SteerableObject {
         window.beepSound.play();
       }
       // finishText = "YOU LOST CONTROL OF THE SPACESHIP";
-      // run = false;
+      return true;
     }
+  }
+
+  draw() {
+    if (!this.crashed) {
+      noStroke();
+      fill("#ffffff");
+      rectMode(CENTER);
+      ellipse(0, 0, 18, 34);
+      rect(0, -20, 2, 15);
+      quad(-9, 2, 9, 2, 15, 11, -15, 11);
+      fill("#000000");
+      ellipse(0, -5, 8, 12);
+
+      // fuel exhaustion
+      fill(window.whiteOpaque);
+      if (this.fuelEx) {
+        triangle(-5, 20, 5, 20, 0, 20 + this.fuelEx);
+        triangle(-5, 20, 5, 20, 0, 20 + this.fuelEx * 0.6);
+        triangle(-5, 20, 5, 20, 0, 20 + this.fuelEx * 0.2);
+      }
+    } else if (this.internalTimer < 10) {
+      this.internalTimer++;
+      this.drawExplosion(this.internalTimer);
+    }
+  }
+
+  drawExplosion(s) {
+    noStroke();
+    fill("#ffffff");
+    rectMode(CENTER);
+    push();
+    scale(s);
+    for (let i = 0; i < 360; i += 161) {
+      rotate(radians(i));
+      rect(0, 0, 60, 50);
+    }
+    pop();
+  }
+
+  reset() {
+    console.log("test");
+    console.log(this.yStart);
+    this.crashed = false;
+    this.x = this.xStart;
+    this.y = this.yStart;
+    this.fuel = 150;
+    this.fuelEx = 0;
+    this.internalTimer = 0;
   }
 }

@@ -23,6 +23,8 @@ export default class InteractiveObject extends DisplayObject {
     this.enabled = false;
   }
 
+  reset() {}
+
   hitTest(x, y) {
     let p = this.parent;
     let dx = 0;

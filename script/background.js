@@ -100,4 +100,6 @@ export default class Background extends Sprite {
     }
     rect(x, y, fuelLevel * 0.85, 5);
   }
+
+  reset() {}
 }

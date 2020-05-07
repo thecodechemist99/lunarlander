@@ -16,11 +16,16 @@ export default class Game {
       END: 3,
     };
     this.mode = this.modes.START;
+    this.finished = true;
+  }
+
+  changeMode(mode) {
+    this.mode = mode;
   }
 
   reset() {
     this.timer.reset();
-    this.level = 0;
-    this.score = 0;
+    this.finished = false;
+    this.mode = this.modes.RUN;
   }
 }

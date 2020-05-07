@@ -19,7 +19,7 @@ export default class Window extends Sprite {
     strokeWeight(2);
     fill("#000000");
     rectMode(CENTER);
-    rect(this.x, this.y, this.width, this.height);
+    rect(0, 0, this.width, this.height);
 
     fill("#ffffff");
     noStroke();
@@ -30,6 +30,6 @@ export default class Window extends Sprite {
 
   drawContent() {
     textSize(20);
-    text(this.text, this.x, this.y);
+    text(this.text, 0, 0);
   }
 }
